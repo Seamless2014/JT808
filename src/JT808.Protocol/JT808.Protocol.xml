@@ -15,6 +15,51 @@
             编码之前的写入位置
             </summary>
         </member>
+        <member name="T:JT808.Protocol.DependencyInjectionExtensions">
+            <summary>
+            JT808 DI扩展
+            JT808 DependencyInjectionExtensions
+            </summary>
+        </member>
+        <member name="M:JT808.Protocol.DependencyInjectionExtensions.AddJT808Configure(Microsoft.Extensions.DependencyInjection.IServiceCollection,JT808.Protocol.IJT808Config)">
+            <summary>
+            注册808配置
+            </summary>
+            <param name="services"></param>
+            <param name="jT808Config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JT808.Protocol.DependencyInjectionExtensions.AddJT808Configure(JT808.Protocol.IJT808Builder,JT808.Protocol.IJT808Config)">
+            <summary>
+            注册808配置
+            </summary>
+            <param name="builder"></param>
+            <param name="jT808Config"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JT808.Protocol.DependencyInjectionExtensions.AddJT808Configure``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            注册808配置
+            </summary>
+            <typeparam name="TJT808Config"></typeparam>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JT808.Protocol.DependencyInjectionExtensions.AddJT808Configure``1(JT808.Protocol.IJT808Builder)">
+            <summary>
+            注册808配置
+            </summary>
+            <typeparam name="TJT808Config"></typeparam>
+            <param name="builder"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JT808.Protocol.DependencyInjectionExtensions.AddJT808Configure(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            注册808配置
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
         <member name="T:JT808.Protocol.Enums.JT808Alarm">
             <summary>
             报警标志
@@ -2073,7 +2118,6 @@
         <member name="T:JT808.Protocol.Extensions.JT808BinaryExtensions">
             <summary>
             
-            ref:"www.codeproject.com/tips/447938/high-performance-csharp-byte-array-to-hex-string-t"
             </summary>
         </member>
         <member name="M:JT808.Protocol.Extensions.JT808BinaryExtensions.ToHexString(System.Byte[])">
@@ -2193,6 +2237,29 @@
             
             </summary>
             <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:JT808.Protocol.Extensions.JT808BinaryExtensions.HexUtil">
+            <summary>
+             ref:"www.codeproject.com/tips/447938/high-performance-csharp-byte-array-to-hex-string-t"
+            </summary>
+        </member>
+        <member name="M:JT808.Protocol.Extensions.JT808BinaryExtensions.HexUtil.DoHexDump(System.ReadOnlySpan{System.Byte},System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="buffer"></param>
+            <param name="fromIndex"></param>
+            <param name="length"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JT808.Protocol.Extensions.JT808BinaryExtensions.HexUtil.DoHexDump(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="array"></param>
+            <param name="fromIndex"></param>
+            <param name="length"></param>
             <returns></returns>
         </member>
         <member name="T:JT808.Protocol.Extensions.JT808PackageExtensions">
@@ -4234,6 +4301,11 @@
             JT808配置
             </summary>
         </member>
+        <member name="P:JT808.Protocol.IJT808Builder.Services">
+            <summary>
+            DI ServiceCollection
+            </summary>
+        </member>
         <member name="T:JT808.Protocol.Interfaces.GlobalConfigBase">
             <summary>
             全局配置基类
@@ -4350,6 +4422,15 @@
             <summary>
             终端控制自定义参数命令工厂
             </summary>
+        </member>
+        <member name="P:JT808.Protocol.Interfaces.GlobalConfigBase.EnableAutoMerge">
+            <inheritdoc/>
+        </member>
+        <member name="P:JT808.Protocol.Interfaces.GlobalConfigBase.AutoMergeTimeoutSecond">
+            <inheritdoc/>
+        </member>
+        <member name="P:JT808.Protocol.Interfaces.GlobalConfigBase.Jt808PackageMerger">
+            <inheritdoc/>
         </member>
         <member name="M:JT808.Protocol.Interfaces.GlobalConfigBase.Register(System.Reflection.Assembly[])">
             <summary>
@@ -4689,6 +4770,21 @@
             
             </summary>
         </member>
+        <member name="T:JT808.Protocol.Interfaces.IMerger">
+            <summary>
+            合并分包数据接口
+            </summary>
+        </member>
+        <member name="M:JT808.Protocol.Interfaces.IMerger.TryMerge(JT808.Protocol.JT808Header,System.Byte[],JT808.Protocol.IJT808Config,JT808.Protocol.JT808Bodies@)">
+            <summary>
+            合并元数据并反序列化数据包
+            </summary>
+            <param name="header">消息头</param>
+            <param name="data">分包数据包中的消息体部分元数据<see cref="P:JT808.Protocol.JT808Package.SubDataBodies"/></param>
+            <param name="config">配置项</param>
+            <param name="body">反序列化得出的数据包</param>
+            <returns>是否反序列化成功</returns>
+        </member>
         <member name="T:JT808.Protocol.Interfaces.JT808_CarDVR_Down_Factory">
             <summary>
             记录仪工厂
@@ -4774,6 +4870,11 @@
             <summary>
             分包策略
             注意:处理808的分包读取完流需要先进行转义在进行分包
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.IJT808Config.Jt808PackageMerger">
+            <summary>
+            808自动合并组包接口
             </summary>
         </member>
         <member name="P:JT808.Protocol.IJT808Config.FormatterFactory">
@@ -4862,6 +4963,19 @@
             设备终端号(默认12位)
             </summary>
         </member>
+        <member name="P:JT808.Protocol.IJT808Config.EnableAutoMerge">
+            <summary>
+            是否启用自动组包，默认不启用。
+            <para>当反序列化时遇到分包消息时，将分包数据缓存至内存，直到收到最后一包数据，将其取出进行反序列化，并清除相应缓存</para>
+            </summary>
+            <remarks>启用该选项存在一定风险，请谨慎使用。</remarks>
+        </member>
+        <member name="P:JT808.Protocol.IJT808Config.AutoMergeTimeoutSecond">
+            <summary>
+            自动合并分包超时时间,收到第一个分包开始计算，单位：秒，默认值300秒
+            <para>如该值为30且第一个分包在2011-11-11 11:11:11时收到，则在2011-11-11 11:11:41时认为过期，期间如果未收到所有分包，则自动合并分包将无法完成，并将自动清理相关缓存</para>
+            </summary>
+        </member>
         <member name="M:JT808.Protocol.IJT808Config.Register(System.Reflection.Assembly[])">
             <summary>
             全局注册外部程序集
@@ -4879,15 +4993,21 @@
             默认JT808构造器
             </summary>
         </member>
+        <member name="P:JT808.Protocol.Internal.DefaultBuilder.Services">
+            <summary>
+            DI服务
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.Internal.DefaultBuilder.Config">
             <summary>
             JT808配置
             </summary>
         </member>
-        <member name="M:JT808.Protocol.Internal.DefaultBuilder.#ctor(JT808.Protocol.IJT808Config)">
+        <member name="M:JT808.Protocol.Internal.DefaultBuilder.#ctor(Microsoft.Extensions.DependencyInjection.IServiceCollection,JT808.Protocol.IJT808Config)">
             <summary>
             
             </summary>
+            <param name="services"></param>
             <param name="config"></param>
         </member>
         <member name="T:JT808.Protocol.Internal.DefaultGlobalConfig">
@@ -4905,6 +5025,20 @@
             
             </summary>
             <param name="configId"></param>
+        </member>
+        <member name="T:JT808.Protocol.Internal.DefaultMerger">
+            <summary>
+            默认分包合并实现
+            </summary>
+        </member>
+        <member name="F:JT808.Protocol.Internal.DefaultMerger.splitPackageDictionary">
+            <summary>
+            分包数据缓存
+            <para>key为sim卡号，value为字典，key为消息id,value为元组，结构为：(分包索引,分包元数据)</para>
+            </summary>
+        </member>
+        <member name="M:JT808.Protocol.Internal.DefaultMerger.TryMerge(JT808.Protocol.JT808Header,System.Byte[],JT808.Protocol.IJT808Config,JT808.Protocol.JT808Bodies@)">
+            <inheritdoc/>
         </member>
         <member name="T:JT808.Protocol.JT808ArrayPool">
             <summary>
@@ -5941,6 +6075,11 @@
             版本标识（默认为1=true）
             </summary>
         </member>
+        <member name="P:JT808.Protocol.JT808HeaderMessageBodyProperty.Reserve">
+            <summary>
+            保留
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.JT808HeaderMessageBodyProperty.IsPackage">
             <summary>
             是否分包
@@ -6103,104 +6242,104 @@
         </member>
         <member name="M:JT808.Protocol.JT808Serializer.#ctor(JT808.Protocol.IJT808Config)">
             <summary>
-            
+            ctor
             </summary>
             <param name="jT808Config"></param>
         </member>
         <member name="M:JT808.Protocol.JT808Serializer.#ctor">
             <summary>
-            
+            ctor
             </summary>
         </member>
         <member name="P:JT808.Protocol.JT808Serializer.SerializerId">
             <summary>
-            
+            标识
             </summary>
         </member>
         <member name="M:JT808.Protocol.JT808Serializer.Serialize(JT808.Protocol.JT808Package,JT808.Protocol.Enums.JT808Version,System.Int32)">
             <summary>
-            
+            序列化数据包
             </summary>
-            <param name="package"></param>
-            <param name="version"></param>
-            <param name="minBufferSize"></param>
-            <returns></returns>
+            <param name="package">数据包</param>
+            <param name="version">协议版本</param>
+            <param name="minBufferSize">最低所需缓冲区大小</param>
+            <returns>元数据</returns>
         </member>
         <member name="M:JT808.Protocol.JT808Serializer.Deserialize(System.ReadOnlySpan{System.Byte},JT808.Protocol.Enums.JT808Version,System.Int32)">
             <summary>
-            
+            反序列化
             </summary>
-            <param name="bytes"></param>
-            <param name="version"></param>
-            <param name="minBufferSize"></param>
-            <returns></returns>
+            <param name="bytes">元数据</param>
+            <param name="version">协议版本</param>
+            <param name="minBufferSize">最低所需缓冲区大小</param>
+            <returns>数据包</returns>
         </member>
         <member name="M:JT808.Protocol.JT808Serializer.Serialize``1(``0,JT808.Protocol.Enums.JT808Version,System.Int32)">
             <summary>
-            
+            序列化
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="obj"></param>
-            <param name="version"></param>
-            <param name="minBufferSize"></param>
-            <returns></returns>
+            <param name="obj">数据包</param>
+            <param name="version">协议版本</param>
+            <param name="minBufferSize">最低所需缓冲区大小</param>
+            <returns>元数据</returns>
         </member>
         <member name="M:JT808.Protocol.JT808Serializer.Deserialize``1(System.ReadOnlySpan{System.Byte},JT808.Protocol.Enums.JT808Version,System.Int32)">
             <summary>
-            
+            根据泛型反序列化元数据
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="bytes"></param>
-            <param name="version"></param>
-            <param name="minBufferSize"></param>
-            <returns></returns>
+            <param name="bytes">元素书</param>
+            <param name="version">协议版本</param>
+            <param name="minBufferSize">最低所需缓冲区大小</param>
+            <returns>数据包</returns>
         </member>
         <member name="M:JT808.Protocol.JT808Serializer.CheckPackageType(System.Type)">
             <summary>
-            
+            验证类型是否为<see cref="F:JT808.Protocol.JT808Serializer.JT808_Package_Type"/>或者<see cref="F:JT808.Protocol.JT808Serializer.JT808_Header_Package_Type"/>
             </summary>
-            <param name="type"></param>
+            <param name="type">需要验证的类型</param>
             <returns></returns>
         </member>
         <member name="M:JT808.Protocol.JT808Serializer.HeaderDeserialize(System.ReadOnlySpan{System.Byte},JT808.Protocol.Enums.JT808Version,System.Int32)">
             <summary>
-            用于负载或者分布式的时候，在网关只需要解到头部。
-            根据头部的消息Id进行分发处理，可以防止小部分性能损耗。
+            反序列化消息头
+            <para>用于负载或者分布式的时候，在网关只需要解到头部，根据头部的消息Id进行分发处理，可以防止小部分性能损耗。</para>
             </summary>
-            <param name="bytes"></param>
-            <param name="version"></param>
-            <param name="minBufferSize"></param>
+            <param name="bytes">元数据</param>
+            <param name="version">协议版本</param>
+            <param name="minBufferSize">最低所需缓冲区大小</param>
             <returns></returns>
         </member>
         <member name="M:JT808.Protocol.JT808Serializer.Deserialize(System.ReadOnlySpan{System.Byte},System.Type,JT808.Protocol.Enums.JT808Version,System.Int32)">
             <summary>
-            
+            根据类型反序列化
             </summary>
-            <param name="bytes"></param>
-            <param name="type"></param>
-            <param name="version"></param>
-            <param name="minBufferSize"></param>
+            <param name="bytes">元数据</param>
+            <param name="type">类型</param>
+            <param name="version">协议版本</param>
+            <param name="minBufferSize">最低所需缓冲区大小</param>
             <returns></returns>
         </member>
         <member name="M:JT808.Protocol.JT808Serializer.Analyze(System.ReadOnlySpan{System.Byte},JT808.Protocol.Enums.JT808Version,System.Text.Json.JsonWriterOptions,System.Int32)">
             <summary>
-            
+            分析元数据至json
             </summary>
-            <param name="bytes"></param>
-            <param name="version"></param>
-            <param name="options"></param>
-            <param name="minBufferSize"></param>
+            <param name="bytes">元数据</param>
+            <param name="version">协议版本</param>
+            <param name="options">json选项</param>
+            <param name="minBufferSize">最低所需缓冲区大小</param>
             <returns></returns>
         </member>
         <member name="M:JT808.Protocol.JT808Serializer.Analyze``1(System.ReadOnlySpan{System.Byte},JT808.Protocol.Enums.JT808Version,System.Text.Json.JsonWriterOptions,System.Int32)">
             <summary>
-            
+            分析元数据至json
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="bytes"></param>
-            <param name="version"></param>
-            <param name="options"></param>
-            <param name="minBufferSize"></param>
+            <param name="bytes">元数据</param>
+            <param name="version">协议版本</param>
+            <param name="options">json序列化选项</param>
+            <param name="minBufferSize">最低所需缓冲区大小</param>
             <returns></returns>
         </member>
         <member name="M:JT808.Protocol.JT808Serializer.Analyze(System.UInt16,System.ReadOnlySpan{System.Byte},JT808.Protocol.Enums.JT808Version,System.Text.Json.JsonWriterOptions,System.Int32)">
@@ -6227,23 +6366,23 @@
         </member>
         <member name="M:JT808.Protocol.JT808Serializer.AnalyzeJsonBuffer(System.ReadOnlySpan{System.Byte},JT808.Protocol.Enums.JT808Version,System.Text.Json.JsonWriterOptions,System.Int32)">
             <summary>
-            
+            分析元数据至json
             </summary>
-            <param name="bytes"></param>
-            <param name="version"></param>
-            <param name="options"></param>
-            <param name="minBufferSize"></param>
+            <param name="bytes">元数据</param>
+            <param name="version">协议版本</param>
+            <param name="options">json选项</param>
+            <param name="minBufferSize">最低所需缓冲区大小</param>
             <returns></returns>
         </member>
         <member name="M:JT808.Protocol.JT808Serializer.AnalyzeJsonBuffer``1(System.ReadOnlySpan{System.Byte},JT808.Protocol.Enums.JT808Version,System.Text.Json.JsonWriterOptions,System.Int32)">
             <summary>
-            
+            分析元数据至json
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="bytes"></param>
-            <param name="version"></param>
-            <param name="options"></param>
-            <param name="minBufferSize"></param>
+            <param name="bytes">元数据</param>
+            <param name="version">协议版本</param>
+            <param name="options">json选项</param>
+            <param name="minBufferSize">最低所需缓冲区大小</param>
             <returns></returns>
         </member>
         <member name="M:JT808.Protocol.JT808Serializer.Register(System.Reflection.Assembly[])">
@@ -6453,6 +6592,11 @@
             符合条件的行驶速度记录
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0x08.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0x08.Serialize(JT808.Protocol.MessagePack.JT808MessagePackWriter@,JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0x08,JT808.Protocol.IJT808Config)">
             <summary>
             
@@ -6487,6 +6631,11 @@
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0x09.CommandId">
             <summary>
             0x09
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0x09.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0x09.Description">
@@ -6545,6 +6694,11 @@
             0x10
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0x10.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0x10.Description">
             <summary>
             符合条件的事故疑点记录
@@ -6598,6 +6752,11 @@
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0x11.CommandId">
             <summary>
             0x11
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0x11.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0x11.Description">
@@ -6655,6 +6814,11 @@
             0x12
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0x12.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0x12.Description">
             <summary>
             符合条件的驾驶人登录退出记录
@@ -6708,6 +6872,11 @@
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0x13.CommandId">
             <summary>
             0x13
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0x13.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0x13.Description">
@@ -6765,6 +6934,11 @@
             0x14
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0x14.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0x14.Description">
             <summary>
             符合条件的参数修改记录
@@ -6820,6 +6994,11 @@
             0x15
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0x15.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0x15.Description">
             <summary>
             符合条件的速度状态日志
@@ -6873,6 +7052,11 @@
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0x82.CommandId">
             <summary>
             0x82
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0x82.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0x82.Vin">
@@ -6932,6 +7116,11 @@
             0x83
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0x83.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0x83.RealTime">
             <summary>
             实时时间
@@ -6975,6 +7164,11 @@
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0x84.CommandId">
             <summary>
             0x84
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0x84.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0x84.RealTime">
@@ -7073,6 +7267,11 @@
             0xC2
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0xC2.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0xC2.RealTime">
             <summary>
             实时时间
@@ -7116,6 +7315,11 @@
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0xC3.CommandId">
             <summary>
             0xC3
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0xC3.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0xC3.RealTime">
@@ -7166,6 +7370,11 @@
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0xC4.CommandId">
             <summary>
             0xC4
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0xC4.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0xC4.RealTime">
@@ -7247,6 +7456,11 @@
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0xE1.CommandId">
             <summary>
             0xE1
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0xE1.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Down_0xE1.UniqueNumber">
@@ -7378,6 +7592,11 @@
             0x00
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x00.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x00.StandardYear">
             <summary>
             记录仪执行标准年号后 2 位  BCD 码
@@ -7430,6 +7649,11 @@
             0x01
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x01.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x01.DriverLicenseNo">
             <summary>
             机动车驾驶证号码
@@ -7476,6 +7700,11 @@
             0x02
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x02.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x02.RealTime">
             <summary>
             实时时间
@@ -7519,6 +7748,11 @@
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x03.CommandId">
             <summary>
             0x03
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x03.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x03.RealTime">
@@ -7581,6 +7815,11 @@
             0x04
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x04.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x04.RealTime">
             <summary>
             当前时间
@@ -7629,6 +7868,11 @@
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x05.CommandId">
             <summary>
             0x05
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x05.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x05.Vin">
@@ -7686,6 +7930,11 @@
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x06.CommandId">
             <summary>
             0x06
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x06.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x06.RealTime">
@@ -7784,6 +8033,11 @@
             0x07
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x07.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x07.ProductionPlantCCCCertificationCode">
             <summary>
             生产厂 CCC 认证代码  7字节
@@ -7848,6 +8102,11 @@
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x08.CommandId">
             <summary>
             0x08
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x08.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x08.JT808_CarDVR_Up_0x08_SpeedPerMinutes">
@@ -7926,6 +8185,11 @@
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x09.CommandId">
             <summary>
             0x09
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x09.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x09.JT808_CarDVR_Up_0x09_PositionPerHours">
@@ -8014,6 +8278,11 @@
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x10.CommandId">
             <summary>
             0x10
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x10.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x10.JT808_CarDVR_Up_0x10_AccidentSuspectins">
@@ -8113,6 +8382,11 @@
             0x11
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x11.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x11.JT808_CarDVR_Up_0x11_DriveOverTimes">
             <summary>
             请求发送指定的时间范围内 N 个单位数据块的数据（N≥1）
@@ -8208,6 +8482,11 @@
             0x12
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x12.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x12.JT808_CarDVR_Up_0x12_DriveLogins">
             <summary>
             请求发送指定的时间范围内 N 个单位数据块的数据（N≥1）
@@ -8273,6 +8552,11 @@
             0x13
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x13.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x13.JT808_CarDVR_Up_0x13_ExternalPowerSupplys">
             <summary>
             请求发送指定的时间范围内 N 个单位数据块的数据（N≥1）
@@ -8333,6 +8617,11 @@
             0x14
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x14.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x14.JT808_CarDVR_Up_0x14_ParameterModifys">
             <summary>
             请求发送指定的时间范围内 N 个单位数据块的数据（N≥1）
@@ -8391,6 +8680,11 @@
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x15.CommandId">
             <summary>
             0x15
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x15.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.CarDVR.JT808_CarDVR_Up_0x15.JT808_CarDVR_Up_0x15_SpeedStatusLogs">
@@ -8709,6 +9003,11 @@
             0x0001
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x0001.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0001.Description">
             <summary>
             终端通用应答
@@ -8829,6 +9128,11 @@
             0x0005
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x0005.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0005.Description">
             <summary>
             终端补传分包请求
@@ -8885,6 +9189,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0100.MsgId">
             <summary>
             0x0100
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x0100.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0100.Description">
@@ -8978,6 +9287,11 @@
             0x0102
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x0102.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0102.Description">
             <summary>
             终端鉴权
@@ -9038,6 +9352,11 @@
             0x0104
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x0104.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0104.Description">
             <summary>
             查询终端参数应答
@@ -9091,6 +9410,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0107.MsgId">
             <summary>
             0x0107
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x0107.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0107.Description">
@@ -9213,6 +9537,11 @@
             0x0108
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x0108.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0108.Description">
             <summary>
             终端升级结果通知
@@ -9267,6 +9596,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0200.Description">
             <summary>
             位置信息汇报
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x0200.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0200.AlarmFlag">
@@ -10244,6 +10578,11 @@
             0x0201
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x0201.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0201.Description">
             <summary>
             位置信息查询应答
@@ -10296,6 +10635,11 @@
             0x0301
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x0301.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0301.Description">
             <summary>
             事件报告
@@ -10340,6 +10684,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0302.MsgId">
             <summary>
             0x0302
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x0302.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0302.Description">
@@ -10395,6 +10744,11 @@
             0x0303
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x0303.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0303.Description">
             <summary>
             信息点播_取消
@@ -10442,6 +10796,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0500.MsgId">
             <summary>
             0x0500
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x0500.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0500.Description">
@@ -10492,6 +10851,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0608.MsgId">
             <summary>
             0x0608
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x0608.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0608.Description">
@@ -10573,6 +10937,11 @@
             0x0700
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x0700.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0700.Description">
             <summary>
             行驶记录仪数据上传
@@ -10626,6 +10995,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0701.MsgId">
             <summary>
             0x0701
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x0701.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0701.Description">
@@ -10687,6 +11061,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0702.MsgId">
             <summary>
             0x0702
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x0702.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0702.Description">
@@ -10806,6 +11185,11 @@
             0x0704
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x0704.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0704.Description">
             <summary>
             定位数据批量上传
@@ -10883,6 +11267,11 @@
             0x0705
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x0705.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0705.Description">
             <summary>
             CAN总线数据上传
@@ -10938,6 +11327,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0800.MsgId">
             <summary>
             0x0800
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x0800.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0800.Description">
@@ -11016,6 +11410,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0801.MsgId">
             <summary>
             0x0801
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x0801.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0801.Description">
@@ -11103,6 +11502,11 @@
             0x0802
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x0802.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0802.Description">
             <summary>
             存储多媒体数据检索应答
@@ -11158,6 +11562,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0805.MsgId">
             <summary>
             0x0805
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x0805.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0805.Description">
@@ -11220,6 +11629,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0900.MsgId">
             <summary>
             0x0900
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x0900.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0900.Description">
@@ -11287,6 +11701,11 @@
             0x0901
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x0901.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0901.Description">
             <summary>
             数据压缩上报
@@ -11339,6 +11758,11 @@
             0x0A00
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x0A00.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x0A00.Description">
             <summary>
             终端RSA公钥
@@ -11388,6 +11812,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8001.MsgId">
             <summary>
             0x8001
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8001.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8001.Description">
@@ -11445,6 +11874,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8003.MsgId">
             <summary>
             0x8003
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8003.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8003.Description">
@@ -11507,6 +11941,11 @@
             0x8004
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8004.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8004.Description">
             <summary>
             查询服务器时间应答
@@ -11549,6 +11988,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8100.MsgId">
             <summary>
             0x8100
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8100.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8100.Description">
@@ -11605,6 +12049,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8103.MsgId">
             <summary>
             0x8103
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8103.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8103.Description">
@@ -16104,6 +16553,11 @@
             0x8105
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8105.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8105.Description">
             <summary>
             终端控制
@@ -16645,6 +17099,11 @@
             0x8106
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8106.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8106.Description">
             <summary>
             查询指定终端参数
@@ -16714,6 +17173,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8108.MsgId">
             <summary>
             0x8108
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8108.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8108.Description">
@@ -16807,6 +17271,11 @@
             0x8202
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8202.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8202.Description">
             <summary>
             临时位置跟踪控制
@@ -16857,6 +17326,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8203.MsgId">
             <summary>
             0x8203
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8203.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8203.Description">
@@ -16930,6 +17404,11 @@
             0x8300
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8300.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8300.Description">
             <summary>
             文本信息下发
@@ -16989,6 +17468,11 @@
             0x8301
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8301.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8301.Description">
             <summary>
             事件设置
@@ -17044,6 +17528,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8302.MsgId">
             <summary>
             0x8302
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8302.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8302.Description">
@@ -17130,6 +17619,11 @@
             0x8303
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8303.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8303.Description">
             <summary>
             信息点播菜单设置
@@ -17188,6 +17682,11 @@
             0x8304
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8304.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8304.Description">
             <summary>
             信息服务
@@ -17243,6 +17742,11 @@
             0x8400
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8400.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8400.Description">
             <summary>
             电话回拨
@@ -17291,6 +17795,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8401.MsgId">
             <summary>
             0x8401
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8401.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8401.Description">
@@ -17345,6 +17854,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8500.MsgId">
             <summary>
             0x8500
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8500.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8500.Description">
@@ -17460,6 +17974,11 @@
             0x8600
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8600.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8600.Description">
             <summary>
             设置圆形区域
@@ -17516,6 +18035,11 @@
             0x8601
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8601.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8601.Description">
             <summary>
             删除圆形区域
@@ -17565,6 +18089,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8602.MsgId">
             <summary>
             0x8602
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8602.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8602.Description">
@@ -17623,6 +18152,11 @@
             
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8603.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8603.Description">
             <summary>
             
@@ -17672,6 +18206,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8604.MsgId">
             <summary>
             0x8604
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8604.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8604.Description">
@@ -17777,6 +18316,11 @@
             0x8605
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8605.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8605.Description">
             <summary>
             删除多边形区域
@@ -17826,6 +18370,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8606.MsgId">
             <summary>
             0x8606
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8606.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8606.Description">
@@ -17911,6 +18460,11 @@
             0x8607
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8607.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8607.Description">
             <summary>
             删除路线
@@ -17961,6 +18515,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8608.MsgId">
             <summary>
             0x8608
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8608.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8608.Description">
@@ -18018,6 +18577,11 @@
             0x8700
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8700.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8700.Description">
             <summary>
             行驶记录数据采集命令
@@ -18065,6 +18629,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8701.MsgId">
             <summary>
             0x8701
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8701.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8701.Description">
@@ -18137,6 +18706,11 @@
             0x8800
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8800.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8800.Description">
             <summary>
             多媒体数据上传应答
@@ -18191,6 +18765,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8801.MsgId">
             <summary>
             0x8801
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8801.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8801.Description">
@@ -18293,6 +18872,11 @@
             0x8802
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8802.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8802.Description">
             <summary>
             存储多媒体数据检索
@@ -18361,6 +18945,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8803.MsgId">
             <summary>
             0x8803
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8803.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8803.Description">
@@ -18439,6 +19028,11 @@
             0x8804
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8804.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8804.Description">
             <summary>
             录音开始命令
@@ -18501,6 +19095,11 @@
             0x8805
             </summary>
         </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8805.SkipSerialization">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8805.Description">
             <summary>
             单条存储多媒体数据检索上传命令
@@ -18549,6 +19148,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8900.MsgId">
             <summary>
             0x8900
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8900.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8900.Description">
@@ -18616,6 +19220,11 @@
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8A00.MsgId">
             <summary>
             0x8A00
+            </summary>
+        </member>
+        <member name="P:JT808.Protocol.MessageBody.JT808_0x8A00.SkipSerialization">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:JT808.Protocol.MessageBody.JT808_0x8A00.Description">

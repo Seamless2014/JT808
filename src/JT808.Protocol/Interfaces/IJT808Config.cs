@@ -1,10 +1,10 @@
-﻿using JT808.Protocol.Enums;
-using JT808.Protocol.Formatters;
-using JT808.Protocol.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using JT808.Protocol.Enums;
+using JT808.Protocol.Formatters;
+using JT808.Protocol.Interfaces;
 using static JT808.Protocol.MessageBody.JT808_0x8105;
 
 namespace JT808.Protocol
@@ -35,6 +35,10 @@ namespace JT808.Protocol
         /// 注意:处理808的分包读取完流需要先进行转义在进行分包
         /// </summary>
         IJT808SplitPackageStrategy SplitPackageStrategy { get; set; }
+        /// <summary>
+        /// 808自动合并组包接口
+        /// </summary>
+        IMerger Jt808PackageMerger { get; set; }
         /// <summary>
         /// 序列化器工厂
         /// </summary>
@@ -106,6 +110,18 @@ namespace JT808.Protocol
         /// </summary>
         int TerminalPhoneNoLength { get; set; }
         /// <summary>
+        /// 是否启用自动组包，默认不启用。
+        /// <para>当反序列化时遇到分包消息时，将分包数据缓存至内存，直到收到最后一包数据，将其取出进行反序列化，并清除相应缓存</para>
+        /// </summary>
+        /// <remarks>启用该选项存在一定风险，请谨慎使用。</remarks>
+        bool EnableAutoMerge { get; set; }
+        /// <summary>
+        /// 自动合并分包超时时间,收到第一个分包开始计算，单位：秒，默认值300秒
+        /// <para>如该值为30且第一个分包在2011-11-11 11:11:11时收到，则在2011-11-11 11:11:41时认为过期，期间如果未收到所有分包，则自动合并分包将无法完成，并将自动清理相关缓存</para>
+        /// </summary>
+        double AutoMergeTimeoutSecond { get; set; }
+
+        /// <summary>
         /// 全局注册外部程序集
         /// </summary>
         /// <param name="externalAssemblies"></param>
@@ -116,7 +132,7 @@ namespace JT808.Protocol
         /// </summary>
         void ReplaceMsgId<TSourceJT808Bodies, TTargetJT808Bodies>()
             where TSourceJT808Bodies : JT808Bodies
-            where TTargetJT808Bodies : JT808Bodies,new();
+            where TTargetJT808Bodies : JT808Bodies, new();
 
     }
 }

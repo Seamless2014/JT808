@@ -1,12 +1,12 @@
-﻿using JT808.Protocol.Extensions.SuBiao.Metadata;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Text.Json;
+using JT808.Protocol.Extensions.SuBiao.Metadata;
 using JT808.Protocol.Formatters;
 using JT808.Protocol.Interfaces;
 using JT808.Protocol.MessageBody;
 using JT808.Protocol.MessagePack;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.Json;
 
 namespace JT808.Protocol.Extensions.SuBiao.MessageBody
 {
@@ -34,7 +34,7 @@ namespace JT808.Protocol.Extensions.SuBiao.MessageBody
         /// <summary>
         /// 报警/事件类型
         /// </summary>
-        public byte AlarmOrEventType{ get; set; }
+        public byte AlarmOrEventType { get; set; }
         /// <summary>
         /// 报警/事件类型
         /// </summary>
@@ -182,12 +182,12 @@ namespace JT808.Protocol.Extensions.SuBiao.MessageBody
             writer.WriteString($"[{value.AlarmTime.ToString("yyMMddHHmmss")}]日期时间", value.AlarmTime.ToString("yyyy-MM-dd HH:mm:ss"));
             value.VehicleState = reader.ReadUInt16();
             writer.WriteNumber($"[{value.VehicleState.ReadNumber()}]车辆状态", value.VehicleState);
-            var vehicleStateBits=Convert.ToString(value.VehicleState, 2).PadLeft(16, '0');
+            var vehicleStateBits = Convert.ToString(value.VehicleState, 2).PadLeft(16, '0');
             writer.WriteStartObject($"车辆状态对象[{vehicleStateBits}]");
-            writer.WriteString($"[{vehicleStateBits[15]}]Bit0ACC状态", vehicleStateBits[15]=='0'?"关闭":"打开");
-            writer.WriteString($"[{vehicleStateBits[14]}]Bit1左转向状态", vehicleStateBits[14]=='0'?"关闭":"打开");
-            writer.WriteString($"[{vehicleStateBits[13]}]Bit2右转向状态", vehicleStateBits[13]=='0'?"关闭":"打开");
-            writer.WriteString($"[{vehicleStateBits[12]}]Bit3雨刮器状态", vehicleStateBits[12]=='0'?"关闭":"打开");
+            writer.WriteString($"[{vehicleStateBits[15]}]Bit0ACC状态", vehicleStateBits[15] == '0' ? "关闭" : "打开");
+            writer.WriteString($"[{vehicleStateBits[14]}]Bit1左转向状态", vehicleStateBits[14] == '0' ? "关闭" : "打开");
+            writer.WriteString($"[{vehicleStateBits[13]}]Bit2右转向状态", vehicleStateBits[13] == '0' ? "关闭" : "打开");
+            writer.WriteString($"[{vehicleStateBits[12]}]Bit3雨刮器状态", vehicleStateBits[12] == '0' ? "关闭" : "打开");
             writer.WriteString($"[{vehicleStateBits[11]}]Bit4制动状态", vehicleStateBits[11] == '0' ? "未制动" : "制动");
             writer.WriteString($"[{vehicleStateBits[10]}]Bit5插卡状态", vehicleStateBits[10] == '0' ? "未插卡" : "已插卡");
             writer.WriteString($"[{vehicleStateBits[9]}]Bit6自定义", vehicleStateBits[9].ToString());

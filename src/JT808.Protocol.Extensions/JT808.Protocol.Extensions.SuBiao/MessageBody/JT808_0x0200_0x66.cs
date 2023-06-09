@@ -1,19 +1,19 @@
-﻿using JT808.Protocol.Extensions.SuBiao.Metadata;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Text.Json;
+using JT808.Protocol.Extensions.SuBiao.Metadata;
 using JT808.Protocol.Formatters;
 using JT808.Protocol.Interfaces;
 using JT808.Protocol.MessageBody;
 using JT808.Protocol.MessagePack;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.Json;
 
 namespace JT808.Protocol.Extensions.SuBiao.MessageBody
 {
     /// <summary>
     /// 胎压监测系统报警信息
     /// </summary>
-    public class JT808_0x0200_0x66 : JT808MessagePackFormatter<JT808_0x0200_0x66>, JT808_0x0200_CustomBodyBase,  IJT808Analyze
+    public class JT808_0x0200_0x66 : JT808MessagePackFormatter<JT808_0x0200_0x66>, JT808_0x0200_CustomBodyBase, IJT808Analyze
     {
         /// <summary>
         /// 胎压监测系统报警信息Id

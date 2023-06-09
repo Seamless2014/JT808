@@ -64,7 +64,7 @@ JT808Package jT808Package = new JT808Package();
 
 jT808Package.Header = new JT808Header
 {
-    MsgId = Enums.JT808MsgId._0x0200,
+    MsgId = (ushort)JT808.Protocol.Enums.JT808MsgId._0x0200,
     ManualMsgNum = 126,
     TerminalPhoneNo = "123456789012"
 };
@@ -382,7 +382,6 @@ Due to access many different equipment vendor's agreement, but each protocol doc
 | Install-Package JT808.Protocol.Extensions.JT1078 | ![JT808.Protocol.Extensions.JT1078](https://img.shields.io/nuget/v/JT808.Protocol.Extensions.JT1078.svg) | ![JT808.Protocol.Extensions.JT1078](https://img.shields.io/nuget/vpre/JT808.Protocol.Extensions.JT1078.svg)|![JT808](https://img.shields.io/nuget/dt/JT808.Protocol.Extensions.JT1078.svg) |JT1078 extension JT808|
 | Install-Package JT808.Protocol.Extensions.SuBiao| ![JT808.Protocol.Extensions.SuBiao](https://img.shields.io/nuget/v/JT808.Protocol.Extensions.SuBiao.svg) | ![JT808.Protocol.Extensions.SuBiao](https://img.shields.io/nuget/vpre/JT808.Protocol.Extensions.SuBiao.svg)|![JT808](https://img.shields.io/nuget/dt/JT808.Protocol.Extensions.SuBiao.svg) |Active Safety (Su Biao) extension JT808|
 | Install-Package JT808.Protocol.Extensions.YueBiao| ![JT808.Protocol.Extensions.YueBiao](https://img.shields.io/nuget/v/JT808.Protocol.Extensions.YueBiao.svg) | ![JT808.Protocol.Extensions.YueBiao](https://img.shields.io/nuget/vpre/JT808.Protocol.Extensions.YueBiao.svg)|![JT808](https://img.shields.io/nuget/dt/JT808.Protocol.Extensions.YueBiao.svg) |Active Safety (Yue Biao) extension JT808|
-| Install-Package JT808.Protocol.DependencyInjection| ![JT808.Protocol.DependencyInjection](https://img.shields.io/nuget/v/JT808.Protocol.DependencyInjection.svg) | ![JT808.Protocol.DependencyInjection](https://img.shields.io/nuget/vpre/JT808.Protocol.DependencyInjection.svg)|![JT808.Protocol.DependencyInjection](https://img.shields.io/nuget/dt/JT808.Protocol.DependencyInjection.svg) |JT808 DependencyInjection|
 
 ## Using BenchmarkDotNet performance test reports (just for fun, not to be taken seriously)
 

@@ -1,11 +1,11 @@
-﻿using JT808.Protocol.Enums;
+﻿using System;
+using System.Text.Json;
+using JT808.Protocol.Enums;
 using JT808.Protocol.Exceptions;
 using JT808.Protocol.Extensions;
 using JT808.Protocol.Formatters;
 using JT808.Protocol.Interfaces;
 using JT808.Protocol.MessagePack;
-using System;
-using System.Text.Json;
 
 namespace JT808.Protocol
 {
@@ -82,7 +82,8 @@ namespace JT808.Protocol
                 jT808Package.Header.TerminalPhoneNo = reader.ReadBCD(config.TerminalPhoneNoLength, config.Trim);
                 reader.Version = JT808Version.JTT2013;
             }
-            else {
+            else
+            {
                 if (reader.Version == JT808Version.JTT2019 || jT808Package.Header.MessageBodyProperty.VersionFlag)
                 {
                     //2019版本
@@ -121,6 +122,10 @@ namespace JT808.Protocol
                         try
                         {
                             jT808Package.SubDataBodies = reader.ReadArray(jT808Package.Header.MessageBodyProperty.DataLength).ToArray();
+                            if (config.EnableAutoMerge && config.Jt808PackageMerger.TryMerge(jT808Package.Header, jT808Package.SubDataBodies, config, out var body))
+                            {
+                                jT808Package.Bodies = body;
+                            }
                         }
                         catch (Exception ex)
                         {
@@ -273,7 +278,8 @@ namespace JT808.Protocol
                 //消息体属性对象 结束
                 writer.WriteString($"[{terminalPhoneNo.PadLeft(config.TerminalPhoneNoLength, '0')}]终端手机号", terminalPhoneNo);
             }
-            else {
+            else
+            {
                 if (reader.Version == JT808Version.JTT2019 || headerMessageBodyProperty.VersionFlag)
                 {
                     reader.Version = JT808Version.JTT2019;

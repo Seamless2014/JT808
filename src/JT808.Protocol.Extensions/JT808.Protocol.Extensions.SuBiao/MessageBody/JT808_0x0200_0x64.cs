@@ -1,12 +1,12 @@
-﻿using JT808.Protocol.Extensions.SuBiao.Metadata;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Text.Json;
+using JT808.Protocol.Extensions.SuBiao.Metadata;
 using JT808.Protocol.Formatters;
 using JT808.Protocol.Interfaces;
 using JT808.Protocol.MessageBody;
 using JT808.Protocol.MessagePack;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.Json;
 
 namespace JT808.Protocol.Extensions.SuBiao.MessageBody
 {
@@ -34,7 +34,7 @@ namespace JT808.Protocol.Extensions.SuBiao.MessageBody
         /// <summary>
         /// 报警/事件类型
         /// </summary>
-        public byte AlarmOrEventType{ get; set; }
+        public byte AlarmOrEventType { get; set; }
         /// <summary>
         /// 报警/事件类型
         /// </summary>
@@ -89,6 +89,7 @@ namespace JT808.Protocol.Extensions.SuBiao.MessageBody
         /// 报警标识号
         /// </summary>
         public AlarmIdentificationProperty AlarmIdentification { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
@@ -277,7 +278,7 @@ namespace JT808.Protocol.Extensions.SuBiao.MessageBody
         /// <param name="config"></param>
         /// <returns></returns>
         public override JT808_0x0200_0x64 Deserialize(ref JT808MessagePackReader reader, IJT808Config config)
-        {          
+        {
             JT808_0x0200_0x64 value = new JT808_0x0200_0x64();
             value.AttachInfoId = reader.ReadByte();
             value.AttachInfoLength = reader.ReadByte();
@@ -331,7 +332,8 @@ namespace JT808.Protocol.Extensions.SuBiao.MessageBody
             writer.WriteUInt32((uint)value.Longitude);
             writer.WriteDateTime_yyMMddHHmmss(value.AlarmTime);
             writer.WriteUInt16(value.VehicleState);
-            if (value.AlarmIdentification == null) {
+            if (value.AlarmIdentification == null)
+            {
                 throw new NullReferenceException($"{nameof(AlarmIdentificationProperty)}不为空");
             }
             writer.WriteString(value.AlarmIdentification.TerminalID);
