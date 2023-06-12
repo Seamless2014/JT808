@@ -1951,6 +1951,29 @@
             Unified error code
             </summary>
         </member>
+        <member name="T:JT808.Protocol.Extensions.HexUtil">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:JT808.Protocol.Extensions.HexUtil.DoHexDump(System.ReadOnlySpan{System.Byte},System.Int32,System.Int32)">
+             <summary>
+            
+             </summary>
+             <param name="buffer"></param>
+             <param name="fromIndex"></param>
+             <param name="length"></param>
+             <returns></returns>
+        </member>
+        <member name="M:JT808.Protocol.Extensions.HexUtil.DoHexDump(System.Byte[],System.Int32,System.Int32)">
+             <summary>
+            
+             </summary>
+             <param name="array"></param>
+             <param name="fromIndex"></param>
+             <param name="length"></param>
+             <returns></returns>
+        </member>
         <member name="T:JT808.Protocol.Extensions.JT808AnalyzeExtensions">
             <summary>
             JT808分析器扩展
@@ -2193,6 +2216,32 @@
             
             </summary>
             <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:JT808.Protocol.Extensions.JT808MessagePackFormatterResolverExtensions">
+             <summary>
+            
+             ref http://adamsitnik.com/Span/#span-must-not-be-a-generic-type-argument
+             ref http://adamsitnik.com/Span/
+             ref:MessagePack.Formatters.DynamicObjectTypeFallbackFormatter
+             </summary>
+        </member>
+        <member name="M:JT808.Protocol.Extensions.JT808MessagePackFormatterResolverExtensions.JT808DynamicSerialize(System.Object,JT808.Protocol.MessagePack.JT808MessagePackWriter@,System.Object,JT808.Protocol.IJT808Config)">
+            <summary>
+            JT808动态序列化
+            </summary>
+            <param name="objFormatter"></param>
+            <param name="writer"></param>
+            <param name="value"></param>
+            <param name="config"></param>
+        </member>
+        <member name="M:JT808.Protocol.Extensions.JT808MessagePackFormatterResolverExtensions.JT808DynamicDeserialize(System.Object,JT808.Protocol.MessagePack.JT808MessagePackReader@,JT808.Protocol.IJT808Config)">
+            <summary>
+            JT808动态反序列化
+            </summary>
+            <param name="objFormatter"></param>
+            <param name="reader"></param>
+            <param name="config"></param>
             <returns></returns>
         </member>
         <member name="T:JT808.Protocol.Extensions.JT808PackageExtensions">
@@ -4140,6 +4189,11 @@
             </summary>
             <param name="jT808Config"></param>
             <returns></returns>
+        </member>
+        <member name="T:JT808.Protocol.Formatters.IJT808Formatter">
+            <summary>
+            
+            </summary>
         </member>
         <member name="T:JT808.Protocol.Formatters.IJT808FormatterFactory">
             <summary>
