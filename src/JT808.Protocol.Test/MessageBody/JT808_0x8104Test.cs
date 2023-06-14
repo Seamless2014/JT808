@@ -1,4 +1,5 @@
 ﻿using JT808.Protocol.Extensions;
+using JT808.Protocol.MessageBody;
 using Xunit;
 
 namespace JT808.Protocol.Test.MessageBody
@@ -46,7 +47,7 @@ namespace JT808.Protocol.Test.MessageBody
             var data2013 = JT808.Protocol.Enums.JT808MsgId._0x8104.Create("12345678900");
             var hex = JT808Serializer.Serialize(data2013, Enums.JT808Version.JTT2019);
 
-            var jT808HeaderPackage1= JT808Serializer.HeaderDeserialize(hex, Enums.JT808Version.JTT2019);
+            var jT808HeaderPackage1 = JT808Serializer.HeaderDeserialize(hex, Enums.JT808Version.JTT2019);
             Assert.Equal("12345678900", jT808HeaderPackage1.Header.TerminalPhoneNo);
             var jT808Package1 = JT808Serializer.Deserialize(hex, Enums.JT808Version.JTT2019);
             Assert.Equal("12345678900", jT808Package1.Header.TerminalPhoneNo);
